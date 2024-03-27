@@ -1,0 +1,134 @@
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>INDEX</title>
+    </head>
+	<body>
+        <h1>This is the omise payment pa</h1>
+       
+        <form id="checkoutForm" method="POST" action="{% url 'charge' %}">
+            {% csrf_token %}
+            <input type="hidden" name="omiseToken">
+            <input type="hidden" name="omiseSource">
+            <button type="submit" id="checkoutButton">Checkout</button>
+        </form>
+          
+          <script type="text/javascript" src="https://cdn.omise.co/omise.js">
+          </script>
+          
+          <script>
+            OmiseCard.configure({
+              publicKey: "pkey_test_5yy97vgj8ukkpmjtjxu"
+            });
+          
+            var button = document.querySelector("#checkoutButton");
+            var form = document.querySelector("#checkoutForm");
+          
+            button.addEventListener("click", (event) => {
+              event.preventDefault();
+              OmiseCard.open({
+                amount: 12345,
+                currency: "THB",
+                defaultPaymentMethod: "credit_card",
+                otherPaymentMethods="mobile_banking_kbank, mobile_banking_ktb, mobile_banking_scb, credit_card, internet_banking, alipay"
+                onCreateTokenSuccess: (nonce) => {
+                    if (nonce.startsWith("tokn_")) {
+                        form.omiseToken.value = nonce;
+                    } else {
+                        form.omiseSource.value = nonce;
+                    };
+                  form.submit();
+                }
+              });
+            });
+          </script>
+	</body>
+</html>  {% endcomment %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Example 3: Custom integration</title>
+  <link rel="stylesheet" href="styles/examples.css">
+  <link rel="stylesheet" href="styles/custom.css">
+</head>
+<body>
+
+
+  <div class="form">
+    <form name="checkoutForm" method="POST" action="{% url 'omise_charge' %}">
+        {% csrf_token %}
+      <div>
+        <!-- Create your own button -->
+        <p><button type="submit" id="checkout-button-1">Checkout Button number 1 !</button></p>
+        <p><button type="submit" id="checkout-button-2">Checkout Button number 2 !</button></p>
+        <p><button type="submit" id="checkout-button-3">Checkout Button number 3 !</button></p>
+      </div>
+    </form>
+  </div>
+
+  <!-- Include card.js library -->
+  <script type="text/javascript" src="https://cdn.omise.co/omise.js"></script>
+
+  <!-- Config the card.js library -->
+  <script type="text/javascript">
+    // Set default parameters
+    OmiseCard.configure({
+      publicKey: 'pkey_test_5yy97vgj8ukkpmjtjxu',
+      image: 'https://cdn.omise.co/assets/dashboard/images/omise-logo.png',
+      //amount: 99500,
+      //defaultPaymentMethod: 'promptpay',
+      //otherPaymentMethods: "credit_card, mobile_banking_kbank, mobile_banking_ktb, mobile_banking_scb, credit_card, internet_banking, alipay"
+    });
+
+    // Configuring your own custom button
+    OmiseCard.configureButton('#checkout-button-1', {
+        frameLabel: 'Merchant name',
+        frameDescription: 'Merchant description',
+        buttonLabel: 'Pay 995',
+        submitLabel: 'PAY RIGHT NOW !',
+        amount: 99500,
+        currency: 'JPY',
+        locale: 'en',
+        amount: 99500,
+        defaultPaymentMethod: 'promptpay',
+        otherPaymentMethods: "shopeepay, kakaopay, credit_card, mobile_banking_kbank, mobile_banking_ktb, mobile_banking_scb, credit_card, internet_banking, alipay"
+      });
+  
+      OmiseCard.configureButton('#checkout-button-2', {
+        frameLabel: 'ชื่อผู้ประกอบการค้า',
+        frameDescription: 'รายละเอียดของผู้ประกอบการค้า',
+        buttonLabel: 'จ่าย 1,250',
+        submitLabel: 'จ่ายเลยตอนนี้',
+        amount: 125000,
+        currency: 'thb',
+        locale: 'th',
+        amount: 99500,
+        defaultPaymentMethod: 'promptpay',
+        otherPaymentMethods: "shopeepay, kakaopay, credit_card, mobile_banking_kbank, mobile_banking_ktb, mobile_banking_scb, credit_card, internet_banking, alipay"
+      });
+  
+      OmiseCard.configureButton('#checkout-button-3', {
+        frameLabel: '商人の名前',
+        frameDescription: '商人の説明',
+        buttonLabel: '支払う 15,699',
+        submitLabel: '支払う',
+        amount: 15699,
+        currency: 'jpy',
+        locale: 'ja',
+        amount: 99500,
+        defaultPaymentMethod: 'promptpay',
+        otherPaymentMethods: "shopeepay, kakaopay, credit_card, mobile_banking_kbank, mobile_banking_ktb, mobile_banking_scb, credit_card, internet_banking, alipay"
+      });
+
+    OmiseCard.attach();
+  </script>
+
+</body>
+</html>
+
+

@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Dear Diary</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
+	</head>
+	<body>
+        <section class="hero is-link">
+            <div class="hero-body">
+                <div class="container">
+                    <p class="title">
+                        Dear Diary
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <article class="media">
+                    <div class="media-content">
+                      <div class="content">
+                        <a href="{% url 'diary_add' %}">Add new entry</a>
+                      </div>
+                      <nav class="level is-mobile">
+                    </div>
+                </article>
+                <article class="media">
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                            <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
+                            <br>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
+                            </p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="media">
+                    <div class="media-content">
+                        <div class="content">
+                          <p>
+                            <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
+                            <br>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
+                          </p>
+                        </div>
+                    </div>
+                </article>
+
+        </section>
+	
+	</body>
+</html>
